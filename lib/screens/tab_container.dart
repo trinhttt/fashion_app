@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../screens/home.dart';
-import '../screens/catalog.dart';
-import '../screens/category.dart';
+import './home.dart';
+import './catalog.dart';
+import './category.dart';
+import './test1.dart';
 
 class TabContainer extends StatefulWidget {
   TabContainer({Key? key}) : super(key: key);
@@ -45,7 +46,7 @@ class _TabContainerState extends State<TabContainer> {
                 label: 'Category',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.checklist),
+                icon: Icon(Icons.list),
                 label: 'Catalog',
               ),
             ]),
