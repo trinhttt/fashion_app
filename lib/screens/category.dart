@@ -28,29 +28,72 @@ class _CategoryState extends State<Category> {
               margin: EdgeInsets.all(10),
               child: ListView(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.red,
-                    ),
-                    height: 100,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('SUMMER SALES',
-                            style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w500)),
-                        Text('Up to 50% off')
-                      ],
-                    ),
-                  ),
-                  for (var _ in [1, 1, 1, 1]) _categoryView()
+                  _buildBannerView(),
+                  SizedBox(height: 10),
+                  for (var i in [1, 2, 3, 4]) _buildCategoryView(i)
                 ],
               ),
             )));
   }
 
-  Widget _categoryView() {
-    return Text('Up to 50% off1');
+  Widget _buildBannerView() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: Colors.red,
+      ),
+      height: 100,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('SUMMER SALES',
+              style: TextStyle(
+                  fontSize: 24, fontWeight: FontWeight.w500)),
+          Text('Up to 50% off')
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCategoryView(int index) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: InkWell(
+        onTap: () => print('Tapped cate $index'),
+        // borderRadius: BorderRadius.circular(8),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 20),
+                  height: 100,
+                  decoration: BoxDecoration(
+                      color: Colors.white12,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          bottomLeft: Radius.circular(8))),
+                  child: Text('Category $index', style: TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w500),),
+                )),
+            Expanded(
+                child: Ink(
+                  height: 100,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(8),
+                          bottomRight: Radius.circular(8)),
+                      image: DecorationImage(
+                          image: AssetImage('assets/image1.jpg'),
+                          fit: BoxFit.cover)),
+                )),
+          ],
+        ),
+        // height: 100,
+        // color: Colors.white, child: Text('a'), onPressed: () {
+        // print('Tapped cate');
+      ),
+    );
   }
 }

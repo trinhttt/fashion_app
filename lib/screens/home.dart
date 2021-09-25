@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fashion_app/widgets/product_item.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -6,6 +7,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<Map> productList = List.generate(
+      5,
+          (index) =>
+      {
+        'star': index % 5 + 1,
+        'brand': 'brand $index',
+        'name': 'product $index',
+        'price': index + 1
+      });
   @override
   void initState() {
     super.initState();
@@ -23,101 +33,48 @@ class _HomeState extends State<Home> {
           height: 170,
           decoration: BoxDecoration(color: Colors.white),
         ),
-        Padding(
-            padding: EdgeInsets.only(left: 10, top: 20, right: 5),
-            child: Row(
-              children: [
-                Text('Sale', style: Theme.of(context).textTheme.headline6),
-                Spacer(),
-                TextButton(
-                    onPressed: () {
-                      print('View all tapped');
-                    },
-                    child: Text('View all'))
-              ],
-            )),
-        Container(
-            width: double.infinity,
-            height: 275,
-            margin: EdgeInsets.only(top: 10),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return _productItem(context);
-              },
-            )),
-        Padding(
-            padding: EdgeInsets.only(left: 10, top: 20, right: 5),
-            child: Row(
-              children: [
-                Text('New', style: Theme.of(context).textTheme.headline6),
-                Spacer(),
-                TextButton(
-                    onPressed: () {
-                      print('View all tapped');
-                    },
-                    child: Text('View all'))
-              ],
-            )),
-        Container(
-            width: double.infinity,
-            height: 275,
-            margin: EdgeInsets.only(top: 10),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return _productItem(context);
-              },
-            )),
+        _buildTitleView('Sale'),
+        _buildProductListView(),
+        _buildTitleView('New'),
+        _buildProductListView()
       ]),
     );
   }
 
-  Widget _productItem(BuildContext context) {
-    return InkWell(
-        onTap: () {
-          print('Product tapped');
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(left: 15),
-              width: 148,
-              height: 184,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                      image: AssetImage('assets/image1.jpg'),
-                      fit: BoxFit.cover)),
-            ),
-            SizedBox(height: 10),
-            Container(
-                margin: EdgeInsets.only(left: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        for (var _ in [1, 1, 1, 1, 1]) Icon(Icons.star, color: Colors.yellow, size: 17),
-                        Text("(10)", style: TextStyle(fontSize: 12, color: Colors.white70)),
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    Text("Brand 1", style: TextStyle(fontSize: 10, color: Colors.white70)),
-                    SizedBox(height: 4),
-                    Text("Product 1", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
-                    SizedBox(height: 4),
-                    Text(
-                      "10\$",
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ],
-                ))
+  Widget _buildTitleView(String title) {
+    return Padding(
+        padding: EdgeInsets.only(left: 15, top: 5, right: 5),
+        child: Row(
+          children: [
+            Text(title, style: Theme
+                .of(context)
+                .textTheme
+                .headline6),
+            Spacer(),
+            TextButton(
+                onPressed: () {
+                  print('View all tapped');
+                },
+                child: Text('View all'))
           ],
+        ));
+  }
+
+  Widget _buildProductListView() {
+    return Container(
+        width: double.infinity,
+        height: 285,
+        margin: EdgeInsets.only(top: 10, right: 10, left: 10),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: productList.length,
+          itemExtent: MediaQuery
+              .of(context)
+              .size
+              .width / 2 - 30,
+          itemBuilder: (context, index) {
+            return ProductItem(productList[index]);
+          },
         ));
   }
 }
