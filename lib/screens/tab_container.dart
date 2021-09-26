@@ -30,6 +30,8 @@ class _TabContainerState extends State<TabContainer> {
         body: IndexedStack(index: tabIndex, children: listScreens),
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: tabIndex,
+            selectedItemColor: Colors.red,
+            unselectedItemColor: Colors.white,
             onTap: (int index) {
               setState(() {
                 tabIndex = index;

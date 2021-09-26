@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fashion_app/widgets/product_item.dart';
+import 'package:fashion_app/models/product_struct.dart';
 
 class Catalog extends StatefulWidget {
   @override
@@ -7,19 +8,15 @@ class Catalog extends StatefulWidget {
 }
 
 class _CatalogState extends State<Catalog> {
-  List<Map> productList = [];
+  late List<ProductStruct> productList;
 
   @override
   void initState() {
     super.initState();
-    this.productList = List.generate(
+    productList = List.generate(
         10,
-        (index) => {
-              'star': index % 5 + 1,
-              'brand': 'brand $index',
-              'name': 'product $index',
-              'price': index + 1
-            });
+            (index) => ProductStruct(
+            index % 5 + 1, 'brand $index', 'product $index', index + 1));
   }
 
   @override

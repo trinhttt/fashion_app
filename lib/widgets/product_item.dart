@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fashion_app/models/product_struct.dart';
 
 class ProductItem extends StatelessWidget {
-  final Map product;
+  final ProductStruct product;
   ProductItem(this.product, {Key? key}): super(key: key);
 
   @override
@@ -32,7 +33,7 @@ class ProductItem extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        for (var i = 0; i < product['star']; i++)
+                        for (var i = 0; i < product.star; i++)
                           Icon(Icons.star, color: Colors.yellow, size: 17),
                         Text("(10)",
                             style:
@@ -40,15 +41,15 @@ class ProductItem extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 4),
-                    Text(product['brand'],
+                    Text(product.brand,
                         style: TextStyle(fontSize: 10, color: Colors.white70)),
                     SizedBox(height: 4),
-                    Text(product['name'],
+                    Text(product.name,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w400)),
                     SizedBox(height: 4),
                     Text(
-                      "${product['price']}\$",
+                      "${product.price}\$",
                       style: TextStyle(color: Colors.red),
                     ),
                   ],
